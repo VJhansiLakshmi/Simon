@@ -141,7 +141,7 @@ body {
 
   .containerA {
     width: 100%;
-    margin: 20px 0 40px;
+    margin: 20px 0 20px;
     text-align: center;
     display: block;
     position: relative;
@@ -162,7 +162,7 @@ body {
   .containerB{
     width: 100%;
     display: block;
-    margin: 18% 0;
+    margin: 15% 0;
     position: relative;
     left: 0;
     top: 0;

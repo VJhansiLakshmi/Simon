@@ -13,6 +13,17 @@ $("body").on("keydown",function(event){
     }
 });
 
+
+$(".level").on("click",function(){
+  if(gamePattern.length == 0){
+    score = 0;
+    $(".score").html("score : "+score);
+    nextSequence();
+  }
+});
+
+
+
 // on click of a color confirm if the userChosenPattern matches gamePattern so far or else startover
 $(".color-btn").on("click",function(){
   if(gamePattern.length > 0){
@@ -33,16 +44,24 @@ $(".color-btn").on("click",function(){
   }
 });
 
-//click title to reload page
+
+// click title to reload page
 $("#game-name").on("click",function(){
   location.reload();
 });
 
 
-//random selection of a color and storing into gamePattern
+
+// click how to play for instructions in dialog box
+$(".howtoplay").on("click",function(){
+  swal("How to Play Simon", "1. Press Space Bar to start.\n 2. Simon will give the first signal.\n 3. Repeat the signal by clicking the same color button.\n 4. Simon will give the next signal.\n 5. Repeat the earlier and current signals by clicking the respective color buttons in the same sequence.\n 6. If the sequence is correct, Simon will give the next signal.\n 7. Remember the sequence of the signals.");
+});
+
+
+//function for random selection of a color and storing into gamePattern
 function nextSequence(){
   level++;
-  $("h2").html("Level "+level);
+  $(".level").html("Level "+level);
   var randomSeq = Math.random()*4;
   randomSeq = Math.floor(randomSeq);
   var randomChosenColor = buttonColors[randomSeq];
@@ -55,7 +74,7 @@ function nextSequence(){
 
 }
 
-//check if selected pattern matches gamePattern
+//function to check if selected pattern matches gamePattern
 function checkPattern(a, b){
   var lenA = a.length;
   var lenB = b.length;
@@ -68,24 +87,20 @@ function checkPattern(a, b){
   }
 }
 
-//play sounds
+//function to play sounds
 function playSound(audioName){
   var sound = new Audio("sounds/"+ audioName +".mp3");
   sound.play();
 }
 
-//restart game
+//function to restart game
 function startOver(){
   gamePattern.length = 0;
   userChosenPattern.length = 0;
   level = 0;
   $("body").addClass("game-over");
   setTimeout(function(){$("body").removeClass("game-over"); }, 200);
-  $("h2").html("Game Over! Press Space Bar to Restart");
+  $("#start-button").html("Game Over! Press Space Bar to Restart");
+  $("#start-button-media").html("Game Over! Tap here to Restart");
   playSound("wrong");
 }
-
-//click how to play for instructions in dialog box
-$(".howtoplay").on("click",function(){
-  swal("How to Play Simon", "1. Press Space Bar to start.\n 2. Simon will give the first signal.\n 3. Repeat the signal by clicking the same color button.\n 4. Simon will give the next signal.\n 5. Repeat the earlier and current signals by clicking the respective color buttons in the same sequence.\n 6. If the sequence is correct, Simon will give the next signal.\n 7. Remember the sequence of the signals.");
-});
